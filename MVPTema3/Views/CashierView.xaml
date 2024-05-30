@@ -1,0 +1,46 @@
+﻿<Window x:Class="MVPTema3.Views.CashierView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        xmlns:local="clr-namespace:MVPTema3.Converters"
+        d:DesignHeight="450" d:DesignWidth="1100">
+    <Window.Resources>
+        <local:ExpiryDateConverter x:Key="ExpiryDateConverter"/>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Search fields -->
+        <StackPanel Orientation="Horizontal" Margin="10">
+            <Label Content="Name:"/>
+            <TextBox x:Name="txtName" Width="120" Margin="0,0,10,0"/>
+            <Label Content="Barcode:"/>
+            <TextBox x:Name="txtBarcode" Width="120" Margin="0,0,10,0"/>
+            <ComboBox x:Name="cmbCategory" Width="120" Margin="0,0,10,0"/>
+            <ComboBox x:Name="cmbProducer" Width="120" Margin="0,0,10,0"/>
+            <Label Content="Expiration Date:"/>
+            <DatePicker x:Name="dpExpirationDate" Width="120" Margin="0,0,10,0"/>
+            <Button Content="Search" Click="btnSearch_Click" Margin="0,0,10,0"/>
+            <Button Content="Clear" Click="btnClear_Click" Margin="0,0,10,0"/>
+            <Button Content="Create Bon" Click="btnCreateBon_Click" Margin="0,0,10,0"/>
+
+        </StackPanel>
+
+        <!-- DataGrid -->
+        <DataGrid x:Name="dataGrid" Grid.Row="1" Margin="10" AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Name" Binding="{Binding Nume_produs}" />
+                <DataGridTextColumn Header="Barcode" Binding="{Binding Cod_bare}" />
+                <DataGridTextColumn Header="Category" Binding="{Binding Categorie.Nume_categorie}" />
+                <DataGridTextColumn Header="Producer" Binding="{Binding Producator.Nume_producator}" />
+                <DataGridTextColumn Header="Expiration Date" Binding="{Binding EarliestExpirationDate, TargetNullValue='Not Available'}" />
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</Window>

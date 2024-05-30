@@ -1,0 +1,56 @@
+﻿<Window x:Class="MVPTema3.Views.ProducatorView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="clr-namespace:MVPTema3.ViewModels"
+        mc:Ignorable="d"
+        Title="Producer Management" Height="450" Width="800">
+    <Window.DataContext>
+        <vm:ProducatorViewModel />
+    </Window.DataContext>
+    <Grid>
+        <!-- Navigation bar -->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal" Margin="10">
+            <!-- Add navigation buttons here -->
+            <Button Content="Start Page" Click="StartPage_Click"/>
+            <Button Content="Category Management" Click="CategoryManagement_Click"/>
+        </StackPanel>
+        <!-- Rest of your existing UI -->
+        <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="10">
+            <Grid>
+                <TextBox Width="200" Margin="5" Text="{Binding NewProducerName, UpdateSourceTrigger=PropertyChanged}" />
+                <TextBlock IsHitTestVisible="False" Text="Producer Name"
+                           Foreground="Gray"
+                           Margin="10,0,0,0"
+                           VerticalAlignment="Center"
+                           Visibility="{Binding NewProducerName, Converter={StaticResource StringNullOrEmptyToVisibilityConverter}}"/>
+            </Grid>
+            <Grid>
+                <TextBox Width="200" Margin="5" Text="{Binding NewProducerCountry, UpdateSourceTrigger=PropertyChanged}" />
+                <TextBlock IsHitTestVisible="False" Text="Producer Country"
+                           Foreground="Gray"
+                           Margin="10,0,0,0"
+                           VerticalAlignment="Center"
+                           Visibility="{Binding NewProducerCountry, Converter={StaticResource StringNullOrEmptyToVisibilityConverter}}"/>
+            </Grid>
+            <Button Width="100" Margin="5" Content="Add" Command="{Binding AddProducerCommand}" />
+            <Button Width="100" Margin="5" Content="Edit" Command="{Binding EditProducerCommand}" />
+            <Button Width="100" Margin="5" Content="Soft Delete" Command="{Binding SoftDeleteProducerCommand}" />
+        </StackPanel>
+        <DataGrid Grid.Row="2" AutoGenerateColumns="False" ItemsSource="{Binding Producers}" SelectedItem="{Binding SelectedProducer}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ID" Binding="{Binding ID_producator}" IsReadOnly="True" Width="Auto"/>
+                <DataGridTextColumn Header="Name" Binding="{Binding Nume_producator}" IsReadOnly="True" Width="Auto"/>
+                <DataGridTextColumn Header="Country" Binding="{Binding Tara_origine}" IsReadOnly="True" Width="Auto"/>
+                <DataGridCheckBoxColumn Header="Is Active" Binding="{Binding Is_Active}" IsReadOnly="True" Width="Auto"/>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</Window>
+

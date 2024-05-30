@@ -1,0 +1,9 @@
+﻿<Application x:Class="MVPTema3.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:MVPTema3" xmlns:local1="clr-namespace:MVPTema3.Converters"
+             StartupUri="Views/UtilizatorView.xaml">
+    <Application.Resources>
+        <local1:StringNullOrEmptyToVisibilityConverter x:Key="StringNullOrEmptyToVisibilityConverter" />
+    </Application.Resources>
+</Application>

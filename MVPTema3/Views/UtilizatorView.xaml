@@ -1,0 +1,62 @@
+﻿<Window x:Class="MVPTema3.Views.UtilizatorView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="clr-namespace:MVPTema3.ViewModels"
+        xmlns:local="clr-namespace:MVPTema3.Converters"
+        mc:Ignorable="d"
+        Title="User Management" Height="600" Width="850">
+
+    <!-- Resources -->
+    <Window.Resources>
+        <local:ZeroToVisibilityConverter x:Key="ZeroToVisibilityConverter" />
+    </Window.Resources>
+
+    <!-- DataContext -->
+    <Window.DataContext>
+        <vm:UtilizatorViewModel />
+    </Window.DataContext>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <!-- Navigation bar -->
+            <RowDefinition Height="Auto"/>
+            <!-- User management form -->
+            <RowDefinition Height="*"/>
+            <!-- User list -->
+            <RowDefinition Height="50"/>
+            <!-- Spacer row to move login section lower -->
+            <RowDefinition Height="Auto"/>
+            <!-- Login section -->
+        </Grid.RowDefinitions>
+
+        <!-- User management form -->
+        <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="10">
+            <TextBox Width="200" Margin="5" Text="{Binding NewUserName, UpdateSourceTrigger=PropertyChanged}" />
+            <PasswordBox x:Name="PasswordBox" Width="200" Margin="5" PasswordChanged="PasswordBox_PasswordChanged" />
+            <CheckBox Content="Is Admin" IsChecked="{Binding IsAdmin}" Margin="5" />
+            <Button Width="100" Margin="5" Content="Add" Command="{Binding AddUtilizatorCommand}" />
+            <Button Width="100" Margin="5" Content="Edit" Command="{Binding EditUtilizatorCommand}" />
+            <Button Width="100" Margin="5" Content="Delete" Command="{Binding SoftDeleteUtilizatorCommand}" />
+        </StackPanel>
+
+        <!-- User list -->
+        <DataGrid Grid.Row="2" AutoGenerateColumns="False" ItemsSource="{Binding Utilizatori}" SelectedItem="{Binding SelectedUtilizator}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ID" Binding="{Binding ID_utilizator}" IsReadOnly="True" Width="Auto"/>
+                <DataGridTextColumn Header="Username" Binding="{Binding Nume_utilizator}" IsReadOnly="True" Width="Auto"/>
+                <DataGridCheckBoxColumn Header="Is Admin" Binding="{Binding Is_admin}" IsReadOnly="True" Width="Auto"/>
+                <DataGridCheckBoxColumn Header="Is Active" Binding="{Binding Is_Active}" IsReadOnly="True" Width="Auto"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <!-- Login section -->
+        <StackPanel Grid.Row="4" Orientation="Vertical" Margin="10">
+            <TextBox Width="200" Margin="5" Text="{Binding LoginUsername, UpdateSourceTrigger=PropertyChanged}" />
+            <PasswordBox x:Name="LoginPasswordBox" Width="200" Margin="5" PasswordChanged="LoginPasswordBox_PasswordChanged" />
+            <Button Width="100" Margin="5" Content="Login" Command="{Binding LoginCommand}" />
+        </StackPanel>
+    </Grid>
+</Window>

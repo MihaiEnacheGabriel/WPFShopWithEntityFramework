@@ -1,0 +1,50 @@
+﻿<Window x:Class="MVPTema3.Views.ProdusView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="clr-namespace:MVPTema3.ViewModels"
+        Title="Product Management" Height="450" Width="1286">
+    <Window.DataContext>
+        <vm:ProdusViewModel />
+    </Window.DataContext>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal" Margin="10">
+            <Grid>
+                <TextBox Width="200" Margin="5" Text="{Binding NewProductName, UpdateSourceTrigger=PropertyChanged}" />
+                <TextBlock IsHitTestVisible="False" Text="Product Name"
+                           Foreground="Gray"
+                           Margin="10,0,0,0"
+                           VerticalAlignment="Center"
+                           Visibility="{Binding NewProductName, Converter={StaticResource StringNullOrEmptyToVisibilityConverter}}"/>
+            </Grid>
+            <Grid>
+                <TextBox Width="200" Margin="5" Text="{Binding NewProductBarcode, UpdateSourceTrigger=PropertyChanged}" />
+                <TextBlock IsHitTestVisible="False" Text="Product Barcode"
+                           Foreground="Gray"
+                           Margin="10,0,0,0"
+                           VerticalAlignment="Center"
+                           Visibility="{Binding NewProductBarcode, Converter={StaticResource StringNullOrEmptyToVisibilityConverter}}"/>
+            </Grid>
+            <ComboBox Width="200" Margin="5" ItemsSource="{Binding Categories}" DisplayMemberPath="Nume_categorie" SelectedItem="{Binding SelectedCategory}" />
+            <ComboBox Width="200" Margin="5" ItemsSource="{Binding Producers}" DisplayMemberPath="Nume_producator" SelectedItem="{Binding SelectedProducer}" />
+            <CheckBox Margin="5" Content="In Stock" IsChecked="{Binding NewProductInStock}" />
+            <Button Width="100" Margin="5" Content="Add" Command="{Binding AddProductCommand}" />
+            <Button Width="100" Margin="5" Content="Edit" Command="{Binding EditProductCommand}" />
+            <Button Width="100" Margin="5" Content="Soft Delete" Command="{Binding SoftDeleteProductCommand}" />
+        </StackPanel>
+        <DataGrid Grid.Row="1" AutoGenerateColumns="False" ItemsSource="{Binding Products}" SelectedItem="{Binding SelectedProduct}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ID" Binding="{Binding ID_produs}" IsReadOnly="True" Width="Auto"/>
+                <DataGridTextColumn Header="Name" Binding="{Binding Nume_produs}" IsReadOnly="True" Width="Auto"/>
+                <DataGridTextColumn Header="Barcode" Binding="{Binding Cod_bare}" IsReadOnly="True" Width="Auto"/>
+                <DataGridTextColumn Header="Category" Binding="{Binding Categorie.Nume_categorie}" IsReadOnly="True" Width="Auto"/>
+                <DataGridTextColumn Header="Producer" Binding="{Binding Producator.Nume_producator}" IsReadOnly="True" Width="Auto"/>
+                <DataGridCheckBoxColumn Header="In Stock" Binding="{Binding In_stock}" IsReadOnly="True" Width="Auto"/>
+                <DataGridCheckBoxColumn Header="Is Active" Binding="{Binding Is_Active}" IsReadOnly="True" Width="Auto"/>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</Window>

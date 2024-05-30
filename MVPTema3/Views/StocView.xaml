@@ -1,0 +1,44 @@
+﻿<Window x:Class="MVPTema3.Views.StockView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="clr-namespace:MVPTema3.ViewModels"
+        Title="Stock Management" Height="450" Width="1550">
+    <Window.DataContext>
+        <vm:StockViewModel />
+    </Window.DataContext>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="10">
+            <ComboBox Width="200" Margin="5" ItemsSource="{Binding Products}" DisplayMemberPath="Nume_produs" SelectedItem="{Binding SelectedProduct}" />
+            <TextBox Width="150" Margin="5" Text="{Binding NewStockQuantity, UpdateSourceTrigger=PropertyChanged}" />
+            <TextBox Width="150" Margin="5" Text="{Binding NewStockUnitOfMeasure, UpdateSourceTrigger=PropertyChanged}" />
+            <DatePicker x:Name="supplyDatePicker" Width="150" Margin="5" SelectedDate="{Binding NewStockSupplyDate, Mode=TwoWay}" />
+            <DatePicker x:Name="expiryDatePicker" Width="150" Margin="5" SelectedDate="{Binding NewStockExpiryDate, Mode=TwoWay}" />
+            <TextBox Width="150" Margin="5" Text="{Binding NewStockPurchasePrice, UpdateSourceTrigger=PropertyChanged}" />
+            <TextBox Width="150" Margin="5" Text="{Binding NewStockMarkup, UpdateSourceTrigger=PropertyChanged}" />
+            <Button Width="100" Margin="5" Content="Add Stock" Command="{Binding AddStockCommand}" />
+            <Button Width="100" Margin="5" Content="Copy Details" Command="{Binding EditStockCommand}" />
+            <Button Width="100" Margin="5" Content="Update Stock" Command="{Binding UpdateStockCommand}" />
+        </StackPanel>
+
+        <DataGrid Grid.Row="1" AutoGenerateColumns="False" ItemsSource="{Binding Stocks}" SelectedItem="{Binding SelectedStock}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ID" Binding="{Binding ID_stoc}" IsReadOnly="True" Width="Auto"/>
+                <DataGridTextColumn Header="Product" Binding="{Binding Produs.Nume_produs}" IsReadOnly="True" Width="Auto"/>
+                <DataGridTextColumn Header="Quantity" Binding="{Binding Cantitate}" IsReadOnly="True" Width="Auto"/>
+                <DataGridTextColumn Header="Unit of Measure" Binding="{Binding Unitate_masura}" IsReadOnly="True" Width="Auto"/>
+                <DataGridTextColumn Header="Supply Date" Binding="{Binding Data_aprovizionare}" IsReadOnly="True" Width="Auto"/>
+                <DataGridTextColumn Header="Expiry Date" Binding="{Binding Data_expirare}" IsReadOnly="True" Width="Auto"/>
+                <DataGridTextColumn Header="Purchase Price" Binding="{Binding Pret_achizitie}" IsReadOnly="True" Width="Auto"/>
+                <DataGridTextColumn Header="Markup" Binding="{Binding AdaosComercial}" IsReadOnly="True" Width="Auto"/>
+                <DataGridTextColumn Header="Sell Price" Binding="{Binding Pret_vanzare}" IsReadOnly="True" Width="Auto"/>
+                <DataGridCheckBoxColumn Header="Active" Binding="{Binding Is_Active}" IsReadOnly="True" Width="Auto"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+    </Grid>
+</Window>
